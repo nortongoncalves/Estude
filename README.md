@@ -1,7 +1,7 @@
 # Estude 
 ## Estude é um aplicativo para aula de projetos de software. Inspirado no Proffy desenvolvido pela Rocketseat mas feito do meu jeito.
 
-### link Proffy 
+### Link Proffy 
 <a href="https://github.com/rocketseat-education/nlw-02-omnistack">🔗 Proffy</a>
 
 ### Link do documento de requisitos 
