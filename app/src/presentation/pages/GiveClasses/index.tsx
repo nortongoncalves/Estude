@@ -1,7 +1,7 @@
-import React, {useCallback, useRef} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import {ScrollView} from 'react-native';
+import {Alert, ScrollView, Text} from 'react-native';
 import {
   useNavigation,
   NavigationProp,
@@ -19,13 +19,23 @@ import {
   Title,
   SeparatorForm,
   SeparatorTitle,
+  BlockTerms,
+  ContainerTerms,
+  TextTerms,
+  BoldTextTerms,
+  ButtonSubmit,
+  TextButtonSubmit,
+  ContainerButton,
 } from './styles';
 
 import Header from '../../components/Header';
 import StatusBar from '../../components/StatusBar';
-import Dropdown from '../../components/Dropdown';
+import Dropdown, {IPropsOption} from '../../components/Dropdown';
 import Input, {IInputHandles} from '../../components/Input';
 import ContainerCostHour from '../../components/ContainerCostHour';
+import IHttpClient from '../../../providers/HttpClient/models/IHttpClient';
+import AxiosHttpClient from '../../../providers/HttpClient/implementations/AxiosHttpClient';
+import getMatter from '../../utils/getMatter';
 
 const GiveClasses: React.FC = () => {
   const navigation = useNavigation();
@@ -34,6 +44,10 @@ const GiveClasses: React.FC = () => {
   const inputWhatsappRef = useRef<IInputHandles>(null);
   const inputBioRef = useRef<IInputHandles>(null);
   const inputCostHour = useRef<IInputHandles>(null);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [optionsMatter, setOptionsMatter] = useState<IPropsOption[] | null>(
+    null,
+  );
 
   const handlePressBack = useCallback(
     (navigate: NavigationProp<ParamListBase>) => {
@@ -41,6 +55,33 @@ const GiveClasses: React.FC = () => {
     },
     [],
   );
+
+  const handlePressTerms = useCallback(() => {
+    setAcceptedTerms((oldValue) => !oldValue);
+  }, []);
+
+  const handlePressSubmitButton = useCallback((navigation, acceptedTerms) => {
+    if (!acceptedTerms) Alert.alert('Você deve aceitar o termo de uso');
+    else navigation.goBack();
+  }, []);
+
+  useEffect(() => {
+    async function execute() {
+      const httpClient: IHttpClient = new AxiosHttpClient();
+
+      const options: IPropsOption[] = [
+        {label: 'Selecione a Matéria', value: 0},
+      ];
+
+      const matters = await getMatter(httpClient);
+
+      if (matters) matters.map((matter) => options.push(matter));
+
+      setOptionsMatter(options);
+    }
+
+    execute();
+  }, []);
 
   return (
     <SafeAreaView>
@@ -76,6 +117,8 @@ const GiveClasses: React.FC = () => {
               placeholder="Email (para contato)"
               returnKeyType="next"
               keyboardType="email-address"
+              autoCompleteType="email"
+              autoCapitalize="none"
               autoCorrect={false}
               ref={inputEmailRef}
               onSubmitEditing={() => inputAvatarRef.current?.focus()}
@@ -86,7 +129,9 @@ const GiveClasses: React.FC = () => {
               placeholder="Link de uma foto sua (comece com: https://)"
               returnKeyType="next"
               keyboardType="email-address"
+              autoCapitalize="none"
               autoCorrect={false}
+              mask="link"
               ref={inputAvatarRef}
               onSubmitEditing={() => inputWhatsappRef.current?.focus()}
               borderColorFocus="#1f9b78"
@@ -97,6 +142,8 @@ const GiveClasses: React.FC = () => {
               returnKeyType="next"
               autoCorrect={false}
               ref={inputWhatsappRef}
+              mask="phone"
+              maxLength={15}
               onSubmitEditing={() => inputBioRef.current?.focus()}
               keyboardType="numeric"
               borderColorFocus="#1f9b78"
@@ -121,20 +168,21 @@ const GiveClasses: React.FC = () => {
               />
               <SeparatorTitle>Dados Aulas</SeparatorTitle>
             </SeparatorForm>
-            <Dropdown
-              options={[
-                {
-                  label: 'Selecione a matéria',
-                  value: 0,
-                },
-              ]}
-              backgroundColor="#e5e5e5"
-              border="2px solid #c8c8c9"
-              marginBottom="15px"
-            />
+            {optionsMatter && (
+              <Dropdown
+                options={optionsMatter}
+                backgroundColor="#e5e5e5"
+                border="2px solid #c8c8c9"
+                marginBottom="15px"
+                color="#27b990"
+              />
+            )}
             <Input
               placeholder="Custo da sua aula (custo por hora em R$)"
               autoCorrect={false}
+              mask="money"
+              maxLength={9}
+              defaultValue="R$ 0,00"
               multiline
               borderColorFocus="#1f9b78"
               color="#1f9b78"
@@ -147,6 +195,33 @@ const GiveClasses: React.FC = () => {
             </SeparatorForm>
             <ContainerCostHour />
           </Content>
+          <ContainerTerms
+            onPress={handlePressTerms}
+            backgroundColor={acceptedTerms ? '#B3E8BB' : '#ffcbcb'}>
+            <TextTerms color={acceptedTerms ? '#22772A' : '#FC0606'}>
+              <Text>Selecionando essa checkbox você </Text>
+              <BoldTextTerms>concorda </BoldTextTerms>
+              <Text>que os </Text>
+              <BoldTextTerms>dados fornecidos </BoldTextTerms>
+              <Text>por </Text>
+              <BoldTextTerms>você </BoldTextTerms>
+              <Text>nesse formulário pode ser </Text>
+              <BoldTextTerms>exposto </BoldTextTerms>
+              <Text>a qualquer pessoa que acessar o aplicativo. </Text>
+            </TextTerms>
+            <BlockTerms
+              backgroundColor={acceptedTerms ? '#22772A' : ''}
+              borderColor={acceptedTerms ? '#22772A' : '#FC0606'}
+            />
+          </ContainerTerms>
+          <ContainerButton>
+            <ButtonSubmit
+              onPress={() =>
+                handlePressSubmitButton(navigation, acceptedTerms)
+              }>
+              <TextButtonSubmit>Cadastrar-se</TextButtonSubmit>
+            </ButtonSubmit>
+          </ContainerButton>
           <ButtonGoBack onPress={() => handlePressBack(navigation)}>
             <ButtonGoBackGroup>
               <IconFontAwesome name="arrow-left" size={20} color="#fff" />

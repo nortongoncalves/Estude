@@ -12,7 +12,7 @@ import Header from '../../components/Header';
 import Card from '../../components/Card';
 
 const TeacherList: React.FC = () => {
-  const HttpClient: IHttpClient = new AxiosHttpClient();
+  const httpClient: IHttpClient = new AxiosHttpClient();
 
   return (
     <SafeAreaView>
@@ -22,7 +22,7 @@ const TeacherList: React.FC = () => {
       />
       <Container>
         <Header
-          HttpClient={HttpClient}
+          httpClient={httpClient}
           title="Professores Disponíveis"
           namePage="Estudar"
           backgroundColor={BackgroundColorStatusbar}

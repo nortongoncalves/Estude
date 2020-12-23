@@ -22,7 +22,7 @@ const Dropdown: React.FC<IPropsDropdown> = ({
 
   const handleChangePicker = useCallback(
     (itemValue: React.ReactText) => {
-      if (itemValue === '0') setColorSelect('#c8c8c9');
+      if (itemValue === 0) setColorSelect('#c8c8c9');
       else setColorSelect(color);
       setSelectInput(itemValue);
     },

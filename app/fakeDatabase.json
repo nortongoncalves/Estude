@@ -1,10 +1,6 @@
 {
   "materias": [
     {
-      "id": "0",
-      "value": "Selecione a matéria"
-    },
-    {
       "id": "5474accd-ba1f-4562-bff0-546ed5c5ee71",
       "value": "Matemática"
     },
@@ -26,10 +22,6 @@
     }
   ],
   "DiasSemana": [
-    {
-      "id": "0",
-      "value": "Selecione o dia"
-    },
     {
       "id": "5e999fd3-773b-434e-886a-2726d709bb2b",
       "value": "Segunda Feira"

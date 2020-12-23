@@ -29,6 +29,8 @@ module.exports = {
       "prettier"
   ],
   "rules": {
+    "no-shadow": "off",
+    "no-plusplus": "off",
     "no-useless-constructor": "off",
     "react/require-default-props": "off",
     "react/prop-types": "off",
