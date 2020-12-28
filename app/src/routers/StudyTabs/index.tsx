@@ -8,8 +8,6 @@ import Favorites from '../../presentation/pages/Favorites';
 
 import {tabBarOptionsStyles} from './styles';
 
-const {Navigator, Screen} = createBottomTabNavigator();
-
 interface IPropsIcon {
   focused: boolean;
   size: number;
@@ -23,6 +21,8 @@ interface IPropsLabel {
 }
 
 const StudyTabs: React.FC = () => {
+  const {Navigator, Screen} = createBottomTabNavigator();
+
   const setColorTabBarLabel = useCallback(
     ({focused, color}: IPropsLabel) => (
       <Text
@@ -36,7 +36,7 @@ const StudyTabs: React.FC = () => {
   );
 
   const setIconTabBarIcon = useCallback(
-    ({focused, size, color, name}: IPropsIcon) => (
+    ({focused, size, color, name}: IPropsIcon): JSX.Element => (
       <Icon name={name} size={size} color={focused ? color : '#bebebe'} />
     ),
     [],

@@ -1,4 +1,5 @@
 import React, {useState, useCallback, useEffect} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   NavigationProp,
   ParamListBase,
@@ -14,9 +15,6 @@ import {
   NavigationTopTitle,
   Title,
 } from './styles';
-import IHttpClient from '../../../providers/HttpClient/models/IHttpClient';
-import getMatter from '../../utils/getMatter';
-import getWeek from '../../utils/getWeek';
 
 interface RequestProps {
   title?: string | undefined;
@@ -24,7 +22,6 @@ interface RequestProps {
   backgroundColor: string;
   paddingBottom?: number | undefined;
   filter?: boolean;
-  httpClient?: IHttpClient;
 }
 
 const Header: React.FC<RequestProps> = ({
@@ -33,7 +30,6 @@ const Header: React.FC<RequestProps> = ({
   backgroundColor,
   paddingBottom,
   filter = false,
-  httpClient,
 }: RequestProps) => {
   const navigation = useNavigation();
   const [filterReady, setFilterReady] = useState(false);
@@ -41,24 +37,54 @@ const Header: React.FC<RequestProps> = ({
   const [optionsMatter, setOptionsMatter] = useState<IPropsOption[]>([
     {label: 'Selecione a Matéria', value: 0},
   ]);
-  const [optionsWeek, setOptionsWeek] = useState<IPropsOption[]>([
-    {label: 'Selecione o Dia', value: 0},
+  const [optionsWeek] = useState<IPropsOption[]>([
+    {
+      label: 'Selecione o dia',
+      value: 0,
+    },
+    {
+      label: 'Segunda Feira',
+      value: 2,
+    },
+    {
+      label: 'Terça Feira',
+      value: 3,
+    },
+    {
+      label: 'Quarta Feira',
+      value: 4,
+    },
+    {
+      label: 'Quinta Feira',
+      value: 5,
+    },
+    {
+      label: 'Sexta Feira',
+      value: 6,
+    },
+    {
+      label: 'Sábado',
+      value: 7,
+    },
+    {
+      label: 'Domingo',
+      value: 1,
+    },
   ]);
 
   useEffect(() => {
     async function execute() {
-      if (filter && httpClient && !filterReady) {
-        const matters = await getMatter(httpClient);
-        const weeks = await getWeek(httpClient);
+      if (filter && !filterReady) {
+        const matters = await AsyncStorage.getItem('@Estude:Matters');
         if (matters) {
-          setOptionsMatter((oldValues) => [...oldValues, ...matters]);
+          const parsedMatters = JSON.parse(matters);
+          setOptionsMatter((oldValues) => [...oldValues, ...parsedMatters]);
         }
-        if (weeks) setOptionsWeek((oldValues) => [...oldValues, ...weeks]);
         setFilterReady(true);
       }
     }
     execute();
-  }, [httpClient, filter, filterReady]);
+  }, [filter, filterReady]);
 
   const handleBackPage = useCallback(
     (navigator: NavigationProp<ParamListBase>): void => {

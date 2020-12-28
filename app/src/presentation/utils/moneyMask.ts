@@ -9,6 +9,7 @@ const moneyMask = (textInput: string): string => {
   parsedTextInput = parsedTextInput.replace(/(\d{1,3})(\d{2})$/, 'R$ $1,$2');
   parsedTextInput = parsedTextInput.replace(/^[0]([1-9])$/, 'R$ 0,0$1');
   parsedTextInput = parsedTextInput.replace(/^([1-9])[0]$/, 'R$ 0,$10');
+  parsedTextInput = parsedTextInput.replace(/^([1-9])([1-9])$/, 'R$ 0,$1$2');
 
   return parsedTextInput;
 };

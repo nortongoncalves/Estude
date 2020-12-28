@@ -20,35 +20,5 @@
       "id": "b107b6ef-7032-4615-8432-3508409e79b5",
       "value": "Tecnologia"
     }
-  ],
-  "DiasSemana": [
-    {
-      "id": "5e999fd3-773b-434e-886a-2726d709bb2b",
-      "value": "Segunda Feira"
-    },
-    {
-      "id": "26ac202d-f026-427b-a9d2-7123a526660c",
-      "value": "Terça Feira"
-    },
-    {
-      "id": "2f29ed70-769e-46ee-a69a-76916dc7fd4f",
-      "value": "Quarta Feira"
-    },
-    {
-      "id": "e897099d-2482-47eb-9af9-88678e122efd",
-      "value": "Quinta Feira"
-    },
-    {
-      "id": "2c22026b-4c36-44b8-b677-620c3e151ed2",
-      "value": "Sexta Feira"
-    },
-    {
-      "id": "592ec01d-957e-4755-a0c7-716b92b2d420",
-      "value": "Sábado"
-    },
-    {
-      "id": "d9b4c266-5195-4d1f-99d9-beb3277f9120",
-      "value": "Domingo"
-    }
   ]
 }

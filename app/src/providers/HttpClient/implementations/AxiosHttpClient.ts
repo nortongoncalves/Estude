@@ -7,10 +7,10 @@ import IHttpClient, {
 export default class AxiosHttpClient implements IHttpClient {
   private axiosResponse: AxiosResponse = {} as AxiosResponse;
 
-  public async get({
+  public async get<IResponseData>({
     url,
     headers,
-  }: HttpClientParams): Promise<HttpClientResponse<AxiosResponse>> {
+  }: HttpClientParams): Promise<HttpClientResponse<IResponseData>> {
     try {
       this.axiosResponse = await axios.get(url, {
         headers,

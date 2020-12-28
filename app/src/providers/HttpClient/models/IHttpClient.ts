@@ -6,8 +6,8 @@ export interface HttpClientParams {
   };
 }
 
-export interface HttpClientResponse<T = any> {
-  data: T;
+export interface HttpClientResponse<IResposeData> {
+  data: IResposeData;
   status: number;
   statusText: string;
   headers: any;
@@ -15,5 +15,7 @@ export interface HttpClientResponse<T = any> {
 }
 
 export default interface IHttpClient {
-  get: (params: HttpClientParams) => Promise<HttpClientResponse>;
+  get: <IResposeData>(
+    params: HttpClientParams,
+  ) => Promise<HttpClientResponse<IResposeData>>;
 }

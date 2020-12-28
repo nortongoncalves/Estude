@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import StatusBar from '../../components/StatusBar';
 
@@ -16,6 +17,9 @@ import {
   BackgroundColorStatusbar,
   SafeAreaView,
 } from './styles';
+import IHttpClient from '../../../providers/HttpClient/models/IHttpClient';
+import AxiosHttpClient from '../../../providers/HttpClient/implementations/AxiosHttpClient';
+import GetMatterService from '../../../services/GetMatterService';
 
 const Dashboard: React.FC = () => {
   const navigation = useNavigation();
@@ -27,6 +31,25 @@ const Dashboard: React.FC = () => {
   const handleNavigateToGiveClassesPage = () => {
     navigation.navigate('GiveClasses');
   };
+
+  useEffect(() => {
+    async function execute() {
+      const httpClient: IHttpClient = new AxiosHttpClient();
+      const getMatterService = new GetMatterService(httpClient);
+      const matters = await getMatterService.execute();
+
+      if (matters) {
+        const parsedMatters = JSON.stringify(matters);
+        await AsyncStorage.setItem('@Estude:Matters', parsedMatters);
+      }
+    }
+
+    try {
+      execute();
+    } catch (error) {
+      console.error(error.message);
+    }
+  }, []);
 
   return (
     <SafeAreaView>

@@ -12,40 +12,40 @@ import Input, {IInputHandles} from '../Input';
 
 const ContainerCostHour: React.FC = () => {
   const [numberHours, setNumberHours] = useState(1);
-  const options: IPropsOption[] = [
+  const [options] = useState<IPropsOption[]>([
     {
       label: 'Selecione o dia',
       value: 0,
     },
     {
       label: 'Segunda Feira',
-      value: 1,
-    },
-    {
-      label: 'Terça Feira',
       value: 2,
     },
     {
-      label: 'Quarta Feira',
+      label: 'Terça Feira',
       value: 3,
     },
     {
-      label: 'Quinta Feira',
+      label: 'Quarta Feira',
       value: 4,
     },
     {
-      label: 'Sexta Feira',
+      label: 'Quinta Feira',
       value: 5,
     },
     {
-      label: 'Sábado',
+      label: 'Sexta Feira',
       value: 6,
     },
     {
-      label: 'Domingo',
+      label: 'Sábado',
       value: 7,
     },
-  ];
+    {
+      label: 'Domingo',
+      value: 1,
+    },
+  ]);
   const initEndHourInputRef = useRef<IInputHandles>(null);
 
   const handlePressButton = useCallback(() => {

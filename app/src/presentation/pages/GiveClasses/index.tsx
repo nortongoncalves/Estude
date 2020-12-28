@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert, ScrollView, Text} from 'react-native';
 import {
   useNavigation,
@@ -33,9 +34,6 @@ import StatusBar from '../../components/StatusBar';
 import Dropdown, {IPropsOption} from '../../components/Dropdown';
 import Input, {IInputHandles} from '../../components/Input';
 import ContainerCostHour from '../../components/ContainerCostHour';
-import IHttpClient from '../../../providers/HttpClient/models/IHttpClient';
-import AxiosHttpClient from '../../../providers/HttpClient/implementations/AxiosHttpClient';
-import getMatter from '../../utils/getMatter';
 
 const GiveClasses: React.FC = () => {
   const navigation = useNavigation();
@@ -67,16 +65,20 @@ const GiveClasses: React.FC = () => {
 
   useEffect(() => {
     async function execute() {
-      const httpClient: IHttpClient = new AxiosHttpClient();
-
       const options: IPropsOption[] = [
         {label: 'Selecione a Matéria', value: 0},
       ];
 
-      const matters = await getMatter(httpClient);
-
-      if (matters) matters.map((matter) => options.push(matter));
-
+      const matters = await AsyncStorage.getItem('@Estude:Matters');
+      if (matters) {
+        const parsedMatters: IPropsOption[] = JSON.parse(matters);
+        parsedMatters.forEach((matter) => {
+          options.push({
+            label: matter.label,
+            value: matter.value,
+          });
+        });
+      }
       setOptionsMatter(options);
     }
 
