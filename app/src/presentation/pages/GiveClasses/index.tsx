@@ -33,10 +33,11 @@ import Header from '../../components/Header';
 import StatusBar from '../../components/StatusBar';
 import Dropdown, {IPropsOption} from '../../components/Dropdown';
 import Input, {IInputHandles} from '../../components/Input';
-import ContainerCostHour from '../../components/ContainerCostHour';
+import Schedules from '../../components/Schedules';
 
 const GiveClasses: React.FC = () => {
   const navigation = useNavigation();
+  const inputNameRef = useRef<IInputHandles>(null);
   const inputEmailRef = useRef<IInputHandles>(null);
   const inputAvatarRef = useRef<IInputHandles>(null);
   const inputWhatsappRef = useRef<IInputHandles>(null);
@@ -111,6 +112,7 @@ const GiveClasses: React.FC = () => {
               placeholder="Nome Completo"
               returnKeyType="next"
               autoCorrect={false}
+              ref={inputNameRef}
               onSubmitEditing={() => inputEmailRef.current?.focus()}
               borderColorFocus="#1f9b78"
               color="#1f9b78"
@@ -195,7 +197,7 @@ const GiveClasses: React.FC = () => {
               <IconFontAwesome5 name="calendar-alt" size={20} color="#979797" />
               <SeparatorTitle>Dados Horário</SeparatorTitle>
             </SeparatorForm>
-            <ContainerCostHour />
+            <Schedules />
           </Content>
           <ContainerTerms
             onPress={handlePressTerms}
@@ -218,9 +220,9 @@ const GiveClasses: React.FC = () => {
           </ContainerTerms>
           <ContainerButton>
             <ButtonSubmit
-              onPress={() =>
-                handlePressSubmitButton(navigation, acceptedTerms)
-              }>
+              onPress={() => {
+                handlePressSubmitButton(navigation, acceptedTerms);
+              }}>
               <TextButtonSubmit>Cadastrar-se</TextButtonSubmit>
             </ButtonSubmit>
           </ContainerButton>

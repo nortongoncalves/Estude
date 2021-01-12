@@ -57,7 +57,7 @@ const ContainerCostHour: React.FC = () => {
       return Array.from({
         length: numberHours,
       }).map((_, index) => {
-        const key = `${index}d`;
+        const key = `${index}schedules`;
         return (
           <View key={key} style={{marginBottom: 30}}>
             <Dropdown

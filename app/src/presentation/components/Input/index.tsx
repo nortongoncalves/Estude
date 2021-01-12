@@ -6,12 +6,12 @@ import React, {
   useCallback,
 } from 'react';
 import {TextInputProps, TextInput} from 'react-native';
-import hourMask from '../../utils/hourMask';
-import linkMask from '../../utils/linkMask';
-import moneyMask from '../../utils/moneyMask';
-import phoneMask from '../../utils/phoneMask';
-import {Container} from './styles';
 
+import hourMask from './utils/hourMask';
+import linkMask from './utils/linkMask';
+import moneyMask from './utils/moneyMask';
+import phoneMask from './utils/phoneMask';
+import {Container} from './styles';
 interface IPropsInput extends TextInputProps {
   mask?: 'money' | 'phone' | 'hours' | 'link' | null;
   color?: string;
@@ -67,9 +67,9 @@ const Input: React.ForwardRefRenderFunction<IInputHandles, IPropsInput> = (
     return (
       <Container
         ref={inputRef}
-        onFocus={() =>
-          handleFocusIfMask(valueInputMask, borderColorFocus, mask)
-        }
+        onFocus={() => {
+          handleFocusIfMask(valueInputMask, borderColorFocus, mask);
+        }}
         onBlur={handleBlur}
         value={valueInputMask}
         borderColor={borderColor}
