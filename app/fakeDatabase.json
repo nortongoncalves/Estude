@@ -1,5 +1,5 @@
 {
-  "materias": [
+  "matters": [
     {
       "id": "5474accd-ba1f-4562-bff0-546ed5c5ee71",
       "value": "Matemática"
@@ -19,6 +19,35 @@
     {
       "id": "b107b6ef-7032-4615-8432-3508409e79b5",
       "value": "Tecnologia"
+    }
+  ],
+  "users": [
+    {
+      "id": "STRING",
+      "name": "STRING",
+      "email": "STRING",
+      "avatarLink": "STRING",
+      "whatsapp": "STRING",
+      "biography": "STRING",
+      "costTime": "DECIMAL",
+      "idMatter": "STRING"
+    }
+  ],
+  "classes": [
+    {
+      "id": "STRING",
+      "matterId": "STRING",
+      "cost": "FLOAT",
+      "userId": "STRING"
+    }
+  ],
+  "schedules": [
+    {
+      "id": "STRING",
+      "weekDay": "NUMBER",
+      "startTime": "NUMBER",
+      "endTime": "NUMBER",
+      "classesId": "STRING"
     }
   ]
 }
