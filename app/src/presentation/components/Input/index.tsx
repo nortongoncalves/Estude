@@ -12,6 +12,7 @@ import linkMask from './utils/linkMask';
 import moneyMask from './utils/moneyMask';
 import phoneMask from './utils/phoneMask';
 import {Container} from './styles';
+
 interface IPropsInput extends TextInputProps {
   mask?: 'money' | 'phone' | 'hours' | 'link' | null;
   color?: string;
