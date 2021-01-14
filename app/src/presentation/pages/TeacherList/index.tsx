@@ -5,15 +5,11 @@ import {
   BackgroundColorStatusbar,
   SafeAreaView,
 } from './styles';
-import AxiosHttpClient from '../../../providers/HttpClient/implementations/AxiosHttpClient';
-import IHttpClient from '../../../providers/HttpClient/models/IHttpClient';
 import StatusBar from '../../components/StatusBar';
 import Header from '../../components/Header';
 import Card from '../../components/Card';
 
 const TeacherList: React.FC = () => {
-  const httpClient: IHttpClient = new AxiosHttpClient();
-
   return (
     <SafeAreaView>
       <StatusBar
@@ -22,7 +18,6 @@ const TeacherList: React.FC = () => {
       />
       <Container>
         <Header
-          httpClient={httpClient}
           title="Professores Disponíveis"
           namePage="Estudar"
           backgroundColor={BackgroundColorStatusbar}

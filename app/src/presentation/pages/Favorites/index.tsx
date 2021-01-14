@@ -1,6 +1,4 @@
 import React from 'react';
-import AxiosHttpClient from '../../../providers/HttpClient/implementations/AxiosHttpClient';
-import IHttpClient from '../../../providers/HttpClient/models/IHttpClient';
 
 import Header from '../../components/Header';
 import StatusBar from '../../components/StatusBar';
@@ -14,8 +12,6 @@ import {
 } from './styles';
 
 const Favorites: React.FC = () => {
-  const httpClient: IHttpClient = new AxiosHttpClient();
-
   return (
     <SafeAreaView>
       <StatusBar
@@ -24,7 +20,6 @@ const Favorites: React.FC = () => {
       />
       <Container>
         <Header
-          httpClient={httpClient}
           title="Meus Professores Favoritos"
           namePage="Estudar"
           backgroundColor={BackgroundColorStatusbar}
