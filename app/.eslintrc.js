@@ -29,6 +29,7 @@ module.exports = {
       "prettier"
   ],
   "rules": {
+    "class-methods-use-this": "off",
     "no-shadow": "off",
     "no-plusplus": "off",
     "no-useless-constructor": "off",

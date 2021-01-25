@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "870064611421",
+    "firebase_url": "https://estude-af658-default-rtdb.firebaseio.com",
+    "project_id": "estude-af658",
+    "storage_bucket": "estude-af658.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870064611421:android:941d7f84f14ba1ea822db4",
+        "android_client_info": {
+          "package_name": "com.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "870064611421-08b6es33eku6lagr1e8fbre8q54b3hkm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7_zcOIZwIcVMK2DevUXkRV75CPC5rj2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "870064611421-08b6es33eku6lagr1e8fbre8q54b3hkm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

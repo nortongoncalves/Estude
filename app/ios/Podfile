@@ -16,6 +16,12 @@ target 'app' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
 
+  pod 'RNFBFirestore', :path => '../node_modules/@react-native-firebase/firestore'
+
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+
+  pod 'react-native-get-random-values', :path => '../node_modules/react-native-get-random-values'
+
   target 'appTests' do
     inherit! :complete
     # Pods for testing
