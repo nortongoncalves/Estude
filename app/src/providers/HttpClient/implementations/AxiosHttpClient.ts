@@ -4,7 +4,7 @@ import IHttpClient, {
   HttpClientResponse,
 } from '../models/IHttpClient';
 
-export default class AxiosHttpClient implements IHttpClient {
+class AxiosHttpClient implements IHttpClient {
   private axiosResponse: AxiosResponse = {} as AxiosResponse;
 
   public async get<IResponseData>({
@@ -23,3 +23,5 @@ export default class AxiosHttpClient implements IHttpClient {
     return this.axiosResponse;
   }
 }
+
+export default AxiosHttpClient;
