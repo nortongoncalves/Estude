@@ -8,7 +8,7 @@ import {
   TitleButton,
 } from './styled';
 import Dropdown, {IPropsOption} from '../Dropdown';
-import Input, {IInputHandles} from '../Input';
+import InputMask, {IInputMaskHandles} from '../InputMask';
 
 const ContainerCostHour: React.FC = () => {
   const [numberHours, setNumberHours] = useState(1);
@@ -46,7 +46,7 @@ const ContainerCostHour: React.FC = () => {
       value: 1,
     },
   ]);
-  const initEndHourInputRef = useRef<IInputHandles>(null);
+  const endTimeInputRef = useRef<IInputMaskHandles>(null);
 
   const handlePressButton = useCallback(() => {
     setNumberHours((oldValue) => oldValue + 1);
@@ -61,6 +61,7 @@ const ContainerCostHour: React.FC = () => {
         return (
           <View key={key} style={{marginBottom: 30}}>
             <Dropdown
+              name={`schedules[${index}].weekDay`}
               options={options}
               backgroundColor="#e5e5e5"
               border="2px solid #c8c8c9"
@@ -69,23 +70,25 @@ const ContainerCostHour: React.FC = () => {
             />
             <InlineGroupInputs>
               <ContainerInput>
-                <Input
+                <InputMask
+                  name={`schedules[${index}].startTime`}
                   placeholder="Horário de início"
                   keyboardType="numeric"
-                  onSubmitEditing={() => initEndHourInputRef.current?.focus()}
-                  mask="hours"
+                  onSubmitEditing={() => endTimeInputRef.current?.focus()}
+                  mask="hour"
                   borderColorFocus="#1f9b78"
                   color="#1f9b78"
                   maxLength={5}
                 />
               </ContainerInput>
               <ContainerInput>
-                <Input
+                <InputMask
+                  name={`schedules[${index}].endTime`}
                   placeholder="Horário de Fim"
                   returnKeyType="next"
                   keyboardType="numeric"
-                  mask="hours"
-                  ref={initEndHourInputRef}
+                  mask="hour"
+                  ref={endTimeInputRef}
                   borderColorFocus="#1f9b78"
                   color="#1f9b78"
                   maxLength={5}

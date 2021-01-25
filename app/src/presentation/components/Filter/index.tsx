@@ -4,7 +4,7 @@ import ViewAnimatedHeight, {
   IViewAnimatedHeightHandles,
 } from '../../animations/ViewAnimatedHeight';
 import Dropdown, {IPropsOption} from '../Dropdown';
-import Input from '../Input';
+import InputMask from '../InputMask';
 
 import {
   Container,
@@ -49,23 +49,28 @@ const Filter: React.FC<IRequest> = ({optionsMatter, optionsWeek}) => {
           {optionsMatter && (
             <SelectGroup>
               <LabelSelect>Matéria</LabelSelect>
-              <Dropdown options={optionsMatter} color="#d19a21" />
+              <Dropdown name="matter" options={optionsMatter} color="#d19a21" />
             </SelectGroup>
           )}
           <FormGroupInline>
             {optionsWeek && (
               <SelectGroup width="57%">
                 <LabelSelect>Dia da semana</LabelSelect>
-                <Dropdown options={optionsWeek} color="#d19a21" />
+                <Dropdown
+                  name="weekDay"
+                  options={optionsWeek}
+                  color="#d19a21"
+                />
               </SelectGroup>
             )}
             <SelectGroup width="40%">
               <LabelSelect>Horário</LabelSelect>
-              <Input
+              <InputMask
+                name="startTime"
                 placeholder="Horário de início"
                 style={{backgroundColor: '#fff'}}
                 keyboardType="numeric"
-                mask="hours"
+                mask="hour"
                 color="#d19a21"
                 maxLength={5}
               />

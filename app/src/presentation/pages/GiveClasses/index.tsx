@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  useReducer,
-} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -35,10 +29,11 @@ import {
   ContainerButton,
 } from './styles';
 
-import Form, {IFormHandles} from '../../contexts/Form';
+import Form, {IFormHandles} from '../../components/Form';
 import Header from '../../components/Header';
 import StatusBar from '../../components/StatusBar';
 import Dropdown, {IPropsOption} from '../../components/Dropdown';
+import InputMask, {IInputMaskHandles} from '../../components/InputMask';
 import Input, {IInputHandles} from '../../components/Input';
 import Schedules from '../../components/Schedules';
 
@@ -47,14 +42,14 @@ const GiveClasses: React.FC = () => {
   const formRef = useRef<IFormHandles>(null);
   const inputNameRef = useRef<IInputHandles>(null);
   const inputEmailRef = useRef<IInputHandles>(null);
-  const inputAvatarRef = useRef<IInputHandles>(null);
-  const inputWhatsappRef = useRef<IInputHandles>(null);
+  const inputAvatarRef = useRef<IInputMaskHandles>(null);
+  const inputWhatsappRef = useRef<IInputMaskHandles>(null);
   const inputBioRef = useRef<IInputHandles>(null);
-  const inputCostHour = useRef<IInputHandles>(null);
+  const inputCostHour = useRef<IInputMaskHandles>(null);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [optionsMatter, setOptionsMatter] = useState<IPropsOption[] | null>(
-    null,
-  );
+  const [optionsMatter, setOptionsMatter] = useState<IPropsOption[]>([
+    {label: 'Selecione a Matéria', value: 0},
+  ]);
 
   const handlePressBack = useCallback(
     (navigate: NavigationProp<ParamListBase>) => {
@@ -72,16 +67,13 @@ const GiveClasses: React.FC = () => {
       Alert.alert('Você deve aceitar o termo de uso');
       return;
     }
-    formRef.current?.getFieldArray();
+    // formRef.current?.getSubmitData();
     // navigation.goBack();
   }, []);
 
   useEffect(() => {
     async function execute() {
-      const options: IPropsOption[] = [
-        {label: 'Selecione a Matéria', value: 0},
-      ];
-
+      const options: IPropsOption[] = [];
       const matters = await AsyncStorage.getItem('@Estude:Matters');
       if (matters) {
         const parsedMatters: IPropsOption[] = JSON.parse(matters);
@@ -92,7 +84,7 @@ const GiveClasses: React.FC = () => {
           });
         });
       }
-      setOptionsMatter(options);
+      setOptionsMatter((oldValues) => [...oldValues, ...options]);
     }
 
     execute();
@@ -144,7 +136,7 @@ const GiveClasses: React.FC = () => {
                 borderColorFocus="#1f9b78"
                 color="#1f9b78"
               />
-              <Input
+              <InputMask
                 name="avatarLink"
                 placeholder="Link de uma foto sua (comece com: https://)"
                 returnKeyType="next"
@@ -157,7 +149,7 @@ const GiveClasses: React.FC = () => {
                 borderColorFocus="#1f9b78"
                 color="#1f9b78"
               />
-              <Input
+              <InputMask
                 name="whatsapp"
                 placeholder="Whatsapp (para contato)"
                 returnKeyType="next"
@@ -171,7 +163,7 @@ const GiveClasses: React.FC = () => {
                 color="#1f9b78"
               />
               <Input
-                name="bio"
+                name="biography"
                 placeholder="Biografia (me descreva o por que você é bom 😆)"
                 returnKeyType="next"
                 autoCorrect={false}
@@ -192,6 +184,7 @@ const GiveClasses: React.FC = () => {
               </SeparatorForm>
               {optionsMatter && (
                 <Dropdown
+                  name="matter"
                   options={optionsMatter}
                   backgroundColor="#e5e5e5"
                   border="2px solid #c8c8c9"
@@ -199,7 +192,7 @@ const GiveClasses: React.FC = () => {
                   color="#27b990"
                 />
               )}
-              <Input
+              <InputMask
                 name="cost"
                 placeholder="Custo da sua aula (custo por hora em R$)"
                 autoCorrect={false}

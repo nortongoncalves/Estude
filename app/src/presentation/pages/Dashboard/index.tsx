@@ -17,8 +17,7 @@ import {
   BackgroundColorStatusbar,
   SafeAreaView,
 } from './styles';
-import IHttpClient from '../../../providers/HttpClient/models/IHttpClient';
-import AxiosHttpClient from '../../../providers/HttpClient/implementations/AxiosHttpClient';
+import {httpClient} from '../../../providers/HttpClient';
 import GetMatterService from '../../../services/GetMatterService';
 
 const Dashboard: React.FC = () => {
@@ -34,7 +33,6 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     async function execute() {
-      const httpClient: IHttpClient = new AxiosHttpClient();
       const getMatterService = new GetMatterService(httpClient);
       const matters = await getMatterService.execute();
 
