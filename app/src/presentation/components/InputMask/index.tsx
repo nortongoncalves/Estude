@@ -6,6 +6,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  memo,
 } from 'react';
 import {TextInput, TextInputProps} from 'react-native';
 import FormContext from '../../contexts/FormContext';
@@ -121,4 +122,4 @@ const InputMask: React.ForwardRefRenderFunction<
   );
 };
 
-export default forwardRef(InputMask);
+export default memo(forwardRef(InputMask));

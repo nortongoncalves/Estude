@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState} from 'react';
+import React, {memo, useCallback, useRef, useState} from 'react';
 import {View} from 'react-native';
 import {
   Container,
@@ -9,43 +9,11 @@ import {
 } from './styled';
 import Dropdown, {IPropsOption} from '../Dropdown';
 import InputMask, {IInputMaskHandles} from '../InputMask';
+import {weekDays} from '../../utils/weekDays';
 
 const ContainerCostHour: React.FC = () => {
   const [numberHours, setNumberHours] = useState(1);
-  const [options] = useState<IPropsOption[]>([
-    {
-      label: 'Selecione o dia',
-      value: 0,
-    },
-    {
-      label: 'Segunda Feira',
-      value: 2,
-    },
-    {
-      label: 'Terça Feira',
-      value: 3,
-    },
-    {
-      label: 'Quarta Feira',
-      value: 4,
-    },
-    {
-      label: 'Quinta Feira',
-      value: 5,
-    },
-    {
-      label: 'Sexta Feira',
-      value: 6,
-    },
-    {
-      label: 'Sábado',
-      value: 7,
-    },
-    {
-      label: 'Domingo',
-      value: 1,
-    },
-  ]);
+  const [options] = useState<IPropsOption[]>(weekDays);
   const endTimeInputRef = useRef<IInputMaskHandles>(null);
 
   const handlePressButton = useCallback(() => {
@@ -61,6 +29,7 @@ const ContainerCostHour: React.FC = () => {
         return (
           <View key={key} style={{marginBottom: 30}}>
             <Dropdown
+              defaultLabel="Selecione o Dia"
               name={`schedules[${index}].weekDay`}
               options={options}
               backgroundColor="#e5e5e5"
@@ -111,4 +80,4 @@ const ContainerCostHour: React.FC = () => {
   );
 };
 
-export default ContainerCostHour;
+export default memo(ContainerCostHour);

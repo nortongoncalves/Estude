@@ -15,6 +15,7 @@ import {
   NavigationTopTitle,
   Title,
 } from './styles';
+import {weekDays} from '../../utils/weekDays';
 
 interface RequestProps {
   title?: string | undefined;
@@ -34,43 +35,8 @@ const Header: React.FC<RequestProps> = ({
   const navigation = useNavigation();
   const [filterReady, setFilterReady] = useState(false);
 
-  const [optionsMatter, setOptionsMatter] = useState<IPropsOption[]>([
-    {label: 'Selecione a Matéria', value: 0},
-  ]);
-  const [optionsWeek] = useState<IPropsOption[]>([
-    {
-      label: 'Selecione o dia',
-      value: 0,
-    },
-    {
-      label: 'Segunda Feira',
-      value: 2,
-    },
-    {
-      label: 'Terça Feira',
-      value: 3,
-    },
-    {
-      label: 'Quarta Feira',
-      value: 4,
-    },
-    {
-      label: 'Quinta Feira',
-      value: 5,
-    },
-    {
-      label: 'Sexta Feira',
-      value: 6,
-    },
-    {
-      label: 'Sábado',
-      value: 7,
-    },
-    {
-      label: 'Domingo',
-      value: 1,
-    },
-  ]);
+  const [optionsMatter, setOptionsMatter] = useState<IPropsOption[]>([]);
+  const [optionsWeek] = useState<IPropsOption[]>(weekDays);
 
   useEffect(() => {
     async function execute() {

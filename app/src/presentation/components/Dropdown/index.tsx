@@ -5,19 +5,21 @@ import React, {
   useRef,
   useEffect,
   useContext,
+  memo,
 } from 'react';
 import {Picker} from '@react-native-community/picker';
 import {Container, IContainerProps} from './styles';
 import FormContext from '../../contexts/FormContext';
 
 export interface IPropsOption {
-  label: string;
-  value: number;
+  id: string;
+  value: string;
 }
 
 export interface IPropsDropdown extends IContainerProps {
   options?: IPropsOption[];
   color?: string;
+  defaultLabel: string;
   name: string;
 }
 
@@ -29,6 +31,7 @@ const Dropdown: React.FC<IPropsDropdown> = ({
   options = [],
   color = '#c8c8c9',
   name,
+  defaultLabel,
   ...rest
 }) => {
   const {registerField} = useContext(FormContext);
@@ -38,7 +41,7 @@ const Dropdown: React.FC<IPropsDropdown> = ({
 
   const handleChangePicker = useCallback(
     (itemValue: React.ReactText) => {
-      if (itemValue === 0) setColorSelect('#c8c8c9');
+      if (itemValue === '0') setColorSelect('#c8c8c9');
       else setColorSelect(color);
       if (!pickerRef.current) return;
       pickerRef.current.value = itemValue;
@@ -57,25 +60,21 @@ const Dropdown: React.FC<IPropsDropdown> = ({
       });
     }
   }, [registerField, name]);
-
+  console.log('renderizou DropDown');
   return (
     <Container {...rest}>
-      {console.log('renderizou DropDown')}
       <Picker
         selectedValue={selectInput}
         onValueChange={handleChangePicker}
         style={{color: colorSelect}}
         ref={pickerRef}>
+        <Picker.Item key="default" label={defaultLabel} value="0" />
         {options.map((option) => (
-          <Picker.Item
-            key={option.label}
-            label={option.label}
-            value={option.value}
-          />
+          <Picker.Item key={option.id} label={option.value} value={option.id} />
         ))}
       </Picker>
     </Container>
   );
 };
 
-export default Dropdown;
+export default memo(Dropdown);

@@ -49,7 +49,12 @@ const Filter: React.FC<IRequest> = ({optionsMatter, optionsWeek}) => {
           {optionsMatter && (
             <SelectGroup>
               <LabelSelect>Matéria</LabelSelect>
-              <Dropdown name="matter" options={optionsMatter} color="#d19a21" />
+              <Dropdown
+                defaultLabel="Selecione a Matéria"
+                name="matter"
+                options={optionsMatter}
+                color="#d19a21"
+              />
             </SelectGroup>
           )}
           <FormGroupInline>
@@ -57,6 +62,7 @@ const Filter: React.FC<IRequest> = ({optionsMatter, optionsWeek}) => {
               <SelectGroup width="57%">
                 <LabelSelect>Dia da semana</LabelSelect>
                 <Dropdown
+                  defaultLabel="Selecione o Dia"
                   name="weekDay"
                   options={optionsWeek}
                   color="#d19a21"

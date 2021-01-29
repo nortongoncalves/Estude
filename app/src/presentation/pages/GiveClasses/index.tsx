@@ -47,9 +47,7 @@ const GiveClasses: React.FC = () => {
   const inputBioRef = useRef<IInputHandles>(null);
   const inputCostHour = useRef<IInputMaskHandles>(null);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [optionsMatter, setOptionsMatter] = useState<IPropsOption[]>([
-    {label: 'Selecione a Matéria', value: 0},
-  ]);
+  const [optionsMatter, setOptionsMatter] = useState<IPropsOption[]>([]);
 
   const handlePressBack = useCallback(
     (navigate: NavigationProp<ParamListBase>) => {
@@ -73,18 +71,11 @@ const GiveClasses: React.FC = () => {
 
   useEffect(() => {
     async function execute() {
-      const options: IPropsOption[] = [];
       const matters = await AsyncStorage.getItem('@Estude:Matters');
       if (matters) {
-        const parsedMatters: IPropsOption[] = JSON.parse(matters);
-        parsedMatters.forEach((matter) => {
-          options.push({
-            label: matter.label,
-            value: matter.value,
-          });
-        });
+        const parsedMatters = JSON.parse(matters);
+        setOptionsMatter((oldValues) => [...oldValues, ...parsedMatters]);
       }
-      setOptionsMatter((oldValues) => [...oldValues, ...options]);
     }
 
     execute();
@@ -184,6 +175,7 @@ const GiveClasses: React.FC = () => {
               </SeparatorForm>
               {optionsMatter && (
                 <Dropdown
+                  defaultLabel="Selecione a Matéria"
                   name="matter"
                   options={optionsMatter}
                   backgroundColor="#e5e5e5"

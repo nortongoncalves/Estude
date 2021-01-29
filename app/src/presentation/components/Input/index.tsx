@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useContext,
   forwardRef,
+  memo,
 } from 'react';
 import {TextInput, TextInputProps} from 'react-native';
 import FormContext from '../../contexts/FormContext';
@@ -74,4 +75,4 @@ const Input: React.ForwardRefRenderFunction<IInputHandles, IPropsInput> = (
   );
 };
 
-export default forwardRef(Input);
+export default memo(forwardRef(Input));

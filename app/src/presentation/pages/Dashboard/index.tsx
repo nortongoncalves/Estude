@@ -17,7 +17,7 @@ import {
   BackgroundColorStatusbar,
   SafeAreaView,
 } from './styles';
-import {httpClient} from '../../../providers/HttpClient';
+import {databaseClient} from '../../../providers/DatabaseClient';
 import GetMatterService from '../../../services/GetMatterService';
 
 const Dashboard: React.FC = () => {
@@ -33,9 +33,9 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     async function execute() {
-      const getMatterService = new GetMatterService(httpClient);
+      const getMatterService = new GetMatterService(databaseClient);
       const matters = await getMatterService.execute();
-
+      console.log(matters);
       if (matters) {
         const parsedMatters = JSON.stringify(matters);
         await AsyncStorage.setItem('@Estude:Matters', parsedMatters);

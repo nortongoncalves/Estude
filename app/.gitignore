@@ -65,3 +65,4 @@ buck-out/
 # VSCODE
 __tests__
 .idea
+.env
